@@ -36,7 +36,7 @@ def subset_metadata_file(filename, sample_sizes):
 
     processed_df = preprocess_metadata_df(df, filename)  # andmestiku eeltöötlus
     sample_sizes.append(
-        processed_df.shape[0])  # lisab Euroopa indiviide alamhulga täissuuruse valimisuuruste järjendisse
+        processed_df.shape[0])  # lisab Euroopa indiviide alamhulga täissuuruse valimi suuruste järjendisse
 
     change_dir(os.getcwd() + '/data/qtlmap-inputs/metadata-processed/')
 

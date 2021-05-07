@@ -5,7 +5,7 @@ from src.utils.ensure_files_directories import check_files
 
 '''
 Loeb sisse täppiskaardistamise tulemusel saadud failid.
-Väljund: sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Väljund: sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
 '''
 def get_fine_mapping_results():
     os.chdir('..')
@@ -24,7 +24,7 @@ def get_fine_mapping_results():
 
 '''
 Leiab andmestikes leiduvate usaldusväärsete variantide hulkade koguarvud. 
-Parameetrid:    dfs - sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Parameetrid:    dfs - sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
 Väljund: järjend hulkade koguarvudest.
 '''
 def get_number_of_cs(dfs):
@@ -42,7 +42,7 @@ def get_number_of_cs(dfs):
 
 '''
 Leiab andmestikes geenide arvud, millele vastas n või rohkem usaldusväärsete variantide hulka.  
-Parameetrid:    dfs - sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Parameetrid:    dfs - sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
                 nr_cs - geenile vastavate hulkade minimaalne arv.
 Väljund: järjend geenide koguarvudest.
 '''
@@ -62,7 +62,7 @@ def get_number_of_genes_with_n_cs(dfs, nr_cs):
 
 '''
 Leiab andmestikes usaldusväärsete variantide hulkade suuruse mediaani/keskmise.
-Parameetrid:    dfs - sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Parameetrid:    dfs - sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
                 median - True: keskmist arvutatakse kasutades mediaani (vaikeväärtus), 
                          False: keskmist arvutatakse kasutades aritmeetilist keskmist.
 Väljund: järjend hulkade mediaanidest/keskmistest suurustest.
@@ -107,10 +107,10 @@ def create_keys(bins):
 
 
 '''
-Leiab valimisuurustele vastavalt hulkade arvu erinevates suurusvahemikes. 
-Parameetrid:    dfs -  sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Leiab valimi suurustele vastavalt hulkade arvu erinevates suurusvahemikes. 
+Parameetrid:    dfs -  sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
                 bins - järjend suurusvahemike esimestest arvudest.
-Väljund: andmestik, kus andmeread sisaldavad kindlat valimisuurust ja suurusvahemikku ning valimisuurusel leitud CS-ide 
+Väljund: andmestik, kus andmeread sisaldavad kindlat valimi suurust ja suurusvahemikku ning valimi suurusel leitud CS-ide 
          arvu selles suurusvahemikus. 
 '''
 def get_bins_of_cs_sizes(dfs, bins=None):
@@ -139,9 +139,9 @@ def get_bins_of_cs_sizes(dfs, bins=None):
 
 
 '''
-Leiab valimisuurustele vastavalt usaldusväärsete variantide hulka arvu vastavalt hulga indeksile (L1, L2, ..., L8). 
-Parameetrid:    dfs -  sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
-Väljund: sõnastik valimisuuruste (võtmed) ja hulkade koguarvudega sõltuvalt indeksist.
+Leiab valimi suurustele vastavalt usaldusväärsete variantide hulka arvu vastavalt hulga indeksile (L1, L2, ..., L8). 
+Parameetrid:    dfs -  sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
+Väljund: sõnastik valimi suuruste (võtmed) ja hulkade koguarvudega sõltuvalt indeksist.
 '''
 def get_cs_index_counts(dfs):
     index_counts = {}
@@ -152,7 +152,7 @@ def get_cs_index_counts(dfs):
         counts = []  # järjend hulkade arvude hoidmiseks
         # leiame, mitu hulka on indeksiga i ja lisame järjendisse
         [counts.append(df[df['cs_index'] == f'L{i}'].shape[0]) for i in range(1, 9)]
-        index_counts[df_n] = counts  # valimisuurus (võti) : hulkade koguarvud (väärtus)
+        index_counts[df_n] = counts  # valimi suurus (võti) : hulkade koguarvud (väärtus)
 
     return index_counts
 
@@ -161,20 +161,20 @@ if __name__ == '__main__':
     dfs = get_fine_mapping_results()  # loeb sisse täppiskaardistamise tulemused
 
     number_of_cs = get_number_of_cs(dfs)
-    print('Valimisuurustele 100, 200, 300, 358 ja 966 leiti vastavalt', number_of_cs,
+    print('Valimi suurustele 100, 200, 300, 358 ja 966 leiti vastavalt', number_of_cs,
           'usaldusväärsete variantide hulka.')
 
     number_of_genes = get_number_of_genes_with_n_cs(dfs, 2)
-    print('\nValimisuurustele 100, 200, 300, 358 ja 966 leiti vastavalt', number_of_genes,
+    print('\nValimi suurustele 100, 200, 300, 358 ja 966 leiti vastavalt', number_of_genes,
           'geeni, millele leidus rohkem kui 2 usaldusväärsete variantide hulka.')
 
     average_sizes_of_cs = get_average_size_of_cs(dfs)
-    print('\nValimisuurustel 100, 200, 300, 358 ja 966 oli keskmine usaldusväärsete variantide '
+    print('\nValimi suurustel 100, 200, 300, 358 ja 966 oli keskmine usaldusväärsete variantide '
           'hulga suurus vastavalt', average_sizes_of_cs)
 
     bins_cs_sizes_df = get_bins_of_cs_sizes(dfs)
-    print('\nUsaldusväärsete variantide hulkade arvud erinevates suurusvahemikes vastavalt valimisuurusele:\n',
+    print('\nUsaldusväärsete variantide hulkade arvud erinevates suurusvahemikes vastavalt valimi suurusele:\n',
           bins_cs_sizes_df.head(30), '\n')
 
     index_counts = get_cs_index_counts(dfs)
-    print('Usaldusväärsete variantide hulkade indeksite L1-L8 sagedused erinevate valimisuuruste puhul:', index_counts)
+    print('Usaldusväärsete variantide hulkade indeksite L1-L8 sagedused erinevate valimi suuruste puhul:', index_counts)

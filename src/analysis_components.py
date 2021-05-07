@@ -9,7 +9,7 @@ from src.utils.ensure_files_directories import ensure_dir, check_file
 
 '''
 Paneb täppiskaardistamise tulemused kokku üheks andmestikuks ja salvestab failina. 
-Parameetrid:    dfs -  sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
+Parameetrid:    dfs -  sõnastik valimi suuruste (võtmed) ja andmestikega (väärtused).
                 directory - kataloogitee kokkupandud andmestiku salvestamiseks.
                 filename - failinimi kokkupandud andmestiku salvestamiseks.
 Väljund: kokkupandud andmestik täppiskaardistamise tulemustest. 
@@ -141,7 +141,7 @@ def components_to_df(graph, pairs_df, components, components_sizes, directory, f
     column_names = []
     max_size = max(components_sizes)
 
-    for size in [100, 200, 300, 358, 966]:  # tekitame iga valimi suuruse juurde mitu hulka, kuna igal valimisuurusel võib olla
+    for size in [100, 200, 300, 358, 966]:  # tekitame iga valimi suuruse juurde mitu hulka, kuna igal valimi suurusel võib olla
         for cs_index in range(1, 9):  # geenil kuni kaheksa usaldusväärsete variantide hulka (indeksitega L1-L8)
             column_names.append(f'cs_id_{size}_{cs_index}')
             column_names.append(f'cs_id_{size}_{cs_index}_size')
@@ -150,7 +150,7 @@ def components_to_df(graph, pairs_df, components, components_sizes, directory, f
 
     for component in components:  # lisame andmestikku kõik graafi komponendid
         component_size = len(component)  # leiab, mitu hulka on komponendis
-        comp_size = 0  # suurus, mis näitab mitmele valimisuurusele vastab vähemalt üks hulk (maksimaalne suurus == 5)
+        comp_size = 0  # suurus, mis näitab mitmele valimi suurusele vastab vähemalt üks hulk (maksimaalne suurus == 5)
 
         result = {}  # töödeldud komponendi hoidmiseks ja lisamiseks dataframe'i
         values = {100: [], 200: [], 300: [], 358: [], 966: []}
@@ -165,17 +165,17 @@ def components_to_df(graph, pairs_df, components, components_sizes, directory, f
                 break
 
         for size in values:
-            if len(values[size]) == 0:  # valimisuurusel # ei leitud ühtegi hulka
-                for cs_index in range(1, 9):  # lisab konkreetsel valimisuurusel indeksveergudesse puuduva väärtuse
+            if len(values[size]) == 0:  # valimi suurusel # ei leitud ühtegi hulka
+                for cs_index in range(1, 9):  # lisab konkreetsel valimi suurusel indeksveergudesse puuduva väärtuse
                     result[f'cs_id_{size}_{cs_index}'] = np.nan
                     result[f'cs_id_{size}_{cs_index}_size'] = np.nan
 
             else:  # leidub vähemalt üks valimi suurusele vastav hulk
                 values[size].sort(key=lambda x: x[0])  # sorteerib hulgad vastavalt indeksile (L1-L8)
-                comp_size += 1  # valimisuurusel leidub vähemalt üks hulk
+                comp_size += 1  # valimi suurusel leidub vähemalt üks hulk
                 cs_indices = [1, 2, 3, 4, 5, 6, 7, 8]
 
-                for _tuple in values[size]:  # vaatab läbi kõik valimisuurusel leitud hulgad ja suurused
+                for _tuple in values[size]:  # vaatab läbi kõik valimi suurusel leitud hulgad ja suurused
                     cs_index = int(_tuple[0][-5])
                     result[f'cs_id_{size}_{cs_index}'] = _tuple[0]  # lisab hulga vastavale valimi suurusele ja indeksile
                     result[f'cs_id_{size}_{cs_index}_size'] = _tuple[1] # lisab hulga suuruse vastavale valimi suurusele ja indeksile
@@ -188,7 +188,7 @@ def components_to_df(graph, pairs_df, components, components_sizes, directory, f
                         result[f'cs_id_{size}_{cs_index}'] = np.nan
                         result[f'cs_id_{size}_{cs_index}_size'] = np.nan
 
-        result['cluster_size'] = comp_size  # mitmele valimisuurusele vastas vähemalt üks hulk
+        result['cluster_size'] = comp_size  # mitmele valimi suurusele vastas vähemalt üks hulk
         result['component_size'] = component_size  # mitu hulka oli komponendis kokku
         df = df.append(result, ignore_index=True)
 
@@ -277,10 +277,10 @@ def process_components_df(df, directory, filename):
         for k in range(df.shape[0]):
             row = df.iloc[k].dropna()  # viskab reast välja kõik puuduvad väärtused
 
-            # mitmele valimisuurusele leiti hulk (kahega jagamine arvestab ridades välja hulga ID-d)
+            # mitmele valimi suurusele leiti hulk (kahega jagamine arvestab ridades välja hulga ID-d)
             row.at['cluster_size'] = len(row.values) / 2
 
-            for size in sample_sizes:  # kui mingil valimisuurusel puudus hulga indeksile vastav väärtus, siis lisatakse
+            for size in sample_sizes:  # kui mingil valimi suurusel puudus hulga indeksile vastav väärtus, siis lisatakse
                 if str(size) not in row:  # puuduv väärtus
                     row.at[f'{size}'] = np.nan
                     row.at[f'cs_id_{size}'] = np.nan
@@ -329,7 +329,7 @@ def extract_components_with_size_n_to_dfs(components_df, n, directory):
 '''
 Eemaldab andmestikust kõrvalekalded ja normaliseerib numbriliste veergude väärtused joondiagrammi jaoks.
 Parameetrid:    df_original - andmestik.
-                sample_sizes - järjend valimisuurustest sõnedena. 
+                sample_sizes - järjend valimi suurustest sõnedena. 
                 max_bound - komponentides sisalduvate hulkade maksimaalne suurus.
 Väljund: töödeldud andmestik.
 '''
@@ -348,14 +348,14 @@ def process_df_lineplot(df_original, sample_sizes, max_bound=None):
 '''
 Andmestiku töötlemine viiuldiagrammi jaoks.
 Parameetrid:    df_original - andmestik.
-                sample_sizes - valimisuuruste veerunimed.
-                size - arv, mis näitab, mitmel valimisuurusel peab leiduma hulk (maksimaalne arv == 5f)
+                sample_sizes - valimi suuruste veerunimed.
+                size - arv, mis näitab, mitmel valimi suurusel peab leiduma hulk (maksimaalne arv == 5f)
                 max_bound - komponentides sisalduvate hulkade maksimaalne suurus.
 Väljund: töödeldud andmestik.
 '''
 def process_df_violinplot(df_original, sample_sizes, size, max_bound=None):
     df = df_original.copy()
-    df = df[df['cluster_size'] == size]  # jätab komponendid, mis leidusid täpselt n valimisuurusel
+    df = df[df['cluster_size'] == size]  # jätab komponendid, mis leidusid täpselt n valimi suurusel
 
     df = df[sample_sizes]  # jätab alles ainult numbrilised veerud (hulkade suurused)
 
