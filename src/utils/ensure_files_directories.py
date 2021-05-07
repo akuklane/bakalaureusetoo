@@ -3,7 +3,7 @@ import os
 
 '''
 Kontrollib, kas fail eksisteerib etteantud asukohas.  
-Parameetrid:    filepath - faili nime sisaldav failitee.
+Parameetrid:    filepath - failitee.
 Väljund: True/False, kui fail eksisteerib/ei eksisteeri.  
 '''
 def check_file(filepath):
@@ -15,7 +15,7 @@ def check_file(filepath):
 
 '''
 Kontrollib, kas failid eksisteerivad etteantud asukohas.  
-Parameetrid:    filepath - failitee.
+Parameetrid:    directory - kataloogitee.
                 files - failide nimed.
 Väljund: True/False, kui kõik failid eksisteerivad/ei eksisteeri.
 '''
@@ -30,7 +30,7 @@ def check_files(path, files):
 
 '''
 Kontrollib, kas kaust eksisteerib etteantud asukohas.  
-Parameetrid:    directory - failitee kaustani.
+Parameetrid:    directory - kataloogitee.
 Väljund: True/False, kui kaust eksisteerib/ei eksisteeri.
 '''
 def check_directory(directory):
@@ -39,7 +39,7 @@ def check_directory(directory):
 
 '''
 Loob kausta, kui kaust ei eksisteeri etteantud asukohas.
-Parameetrid:    directory - failitee kaustani.
+Parameetrid:    directory - kataloogitee.
 '''
 def ensure_dir(directory):
     if not check_directory(directory):
@@ -47,8 +47,8 @@ def ensure_dir(directory):
 
 
 '''
-Kontrollib ja muudab failiteeks kausta asukoha.
-Parameetrid:    directory - failitee kaustani.
+Kontrollib ja muudab kataloogi.
+Parameetrid:    directory - kataloogitee.
 '''
 def change_dir(directory_path):
     ensure_dir(directory_path)

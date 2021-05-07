@@ -51,7 +51,7 @@ def create_plot(plot_params):
 
 
 '''
-Valimite suurustele vastavate tulemuste (CS-ide koguarvude, mediaanide jms) kujutamine tulpdiagrammil. 
+Valimisuurustele vastavate tulemuste (CS-ide koguarvude jms) kujutamine tulpdiagrammil. 
 Parameetrid:    plot_params - tulpdiagrammi kujunduse atribuudid.
                 x - järjend x-telje väärtustest.
                 y - järjend y-telje väärtustest.
@@ -81,7 +81,7 @@ def draw_barplot(plot_params, x, y, figname):
 
 
 '''
-Valimite suurustele vastavates erinevates suurusvahemikes olevate hulkade arvude kujutamine tulpdiagrammil.
+Valimisuurustele vastavates erinevates suurusvahemikes olevate hulkade arvude kujutamine tulpdiagrammil.
 Parameetrid:    plot_params - tulpdiagrammi kujunduse atribuudid.
                 df - andmestik valimisuuruste, suurusvahemike ja suurusvahemikes olevate CS-ide koguarvudega.
                 figname - failinimi joonise salvestamiseks.
@@ -131,10 +131,11 @@ def plot_components(df_original, plot_params, subset=None, figname=None):
 
 
 '''
-Tulemuste kujutamine joondiagrammil.
+Tulemuste (CS-ide mediaanide, komponentide) kujutamine joondiagrammil.
 Parameetrid:    plot_params - joondiagrammi kujunduse atribuudid.
                 x - järjend x-telje väärtustest.
                 y - järjend y-telje väärtustest.
+                annotation_coords - järjend [x, y] annotatsioonide asukoha liigutamiseks punktide suhtes.
                 figname - failinimi joonise salvestamiseks.
 Väljund: graafiku joonis (fig) ja teljed (ax).
 '''

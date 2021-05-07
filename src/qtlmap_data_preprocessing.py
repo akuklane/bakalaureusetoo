@@ -24,7 +24,7 @@ def preprocess_metadata_df(df, dataset_name):
         return df[(df['cell_type'] == 'LCL') & (df['rna_qc_passed']) & (df['genotype_qc_passed'])]
 
     else:
-        # Andmestik ei olnud GEUVADIS, GENCORD või TwinsUK.
+        # andmestik ei olnud GEUVADIS, GENCORD või TwinsUK
         raise ValueError(f'Invalid dataset_name: {dataset_name}')
 
 

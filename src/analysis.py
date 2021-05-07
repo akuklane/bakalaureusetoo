@@ -61,11 +61,11 @@ def get_number_of_genes_with_n_cs(dfs, nr_cs):
 
 
 '''
-Leiab andmestikes usaldusväärsete variantide hulkade keskmise suuruse. 
+Leiab andmestikes usaldusväärsete variantide hulkade suuruse mediaani/keskmise.
 Parameetrid:    dfs - sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
                 median - True: keskmist arvutatakse kasutades mediaani (vaikeväärtus), 
                          False: keskmist arvutatakse kasutades aritmeetilist keskmist.
-Väljund: järjend hulkade keskmisest suurustest.
+Väljund: järjend hulkade mediaanidest/keskmistest suurustest.
 '''
 def get_average_size_of_cs(dfs, median=True):
     avg_sizes = []

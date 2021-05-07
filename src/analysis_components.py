@@ -10,7 +10,7 @@ from src.utils.ensure_files_directories import ensure_dir, check_file
 '''
 Paneb täppiskaardistamise tulemused kokku üheks andmestikuks ja salvestab failina. 
 Parameetrid:    dfs -  sõnastik valimisuuruste (võtmed) ja andmestikega (väärtused).
-                directory - failitee kokkupandud andmestiku salvestamiseks.
+                directory - kataloogitee kokkupandud andmestiku salvestamiseks.
                 filename - failinimi kokkupandud andmestiku salvestamiseks.
 Väljund: kokkupandud andmestik täppiskaardistamise tulemustest. 
 '''
@@ -57,7 +57,7 @@ def create_pyranges_object(original_df, filter_cs_size=None):
 '''
 Leiab ülekattuvad variandid ja salvestab failina.
 Parameetrid:    df_pr - pyranges objekt.
-                directory - failitee andmestiku salvestamiseks.
+                directory - kataloogitee andmestiku salvestamiseks.
                 filename - failinimi andmestiku salvestamiseks.
 Väljund: leitud paarikaupa ülekattuvate variantide andmestik.
 '''
@@ -75,7 +75,7 @@ def find_pairs(df_pr, directory, filename):
 Jätab alles vaid sama geeni ülekattuvad variandid, variantide vahel ühe seose ja salvestab failina, mida kasutatakse 
 graafi sisendina. 
 Parameetrid:    df - paarikaupa ülekattuvate variantide andmestik.
-                directory - failitee töödeldud andmestiku salvestamiseks.
+                directory - kataloogitee töödeldud andmestiku salvestamiseks.
                 filename - failinimi töödeldud andmestiku salvestamiseks.
 Väljund: töödeldud ülekattuvate variantide andmestik.
 '''
@@ -133,7 +133,7 @@ Parameetrid:    graph - ülekattuvatest variantidest moodustatud graaf.
                 pairs_df - ülekattuvate variantide paarid.
                 components - järjend graafi komponentidest. 
                 components_sizes - komponentide suurused.
-                directory - failitee komponentide andmestiku salvestamiseks.
+                directory - kataloogitee komponentide andmestiku salvestamiseks.
                 filename - failinimi komponentide andmestiku salvestamiseks.
 Väljund: komponentide andmestik.
 '''
@@ -238,7 +238,7 @@ def remove_components(df, columns, max_bound):
 Komponentide andmestikust puuduvate väärtuste eemaldamine, komponendis erinevatele indeksitele vastavate hulkade 
 eraldamine ja töödeldud andmestiku salvestamine. 
 Parameetrid:    df - komponentide töötlemata andmestik.
-                directory - failitee töödeldud komponentide andmestiku salvestamiseks.
+                directory - kataloogitee töödeldud komponentide andmestiku salvestamiseks.
                 filename - failinimi töödeldud komponentide andmestiku salvestamiseks.
 Väljund: komponentide töödeldud andmestik.
 '''
@@ -297,7 +297,7 @@ def process_components_df(df, directory, filename):
 Leiab geenid, millele vastab komponent suurusega n, ja salvestab geenile vastavad usaldusväärsete variantide hulgad failina.
 Parameetrid:    components_df - komponentide andmestik.
                 n - komponendi suurus.
-                directory - kaust, kuhu fail(id) salvestada.
+                directory - kataloogitee faili(de) salvestamiseks.
 '''
 def extract_components_with_size_n_to_dfs(components_df, n, directory):
     file = os.getcwd() + '/data/processed-results/' + 'RESULTS_merged.purity_filtered.txt'
