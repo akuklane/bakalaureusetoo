@@ -1,0 +1,12 @@
+.idea/
+
+venv/
+src/__pycache__/
+src/utils/__pycache__/
+
+figures/
+
+data/qtlmap-inputs/
+data/processed-results/*
+!data/processed-results/sample-genes/
+!data/processed-results/components_processed.csv

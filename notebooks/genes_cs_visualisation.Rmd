@@ -1,0 +1,132 @@
+---
+title: 'Geenide usaldusväärsete variantide hulkade muutumine erinevatel valimisuurustel'
+---
+
+```{r}
+if(! require('ggplot2')){
+    install.packages('ggplot2')
+}
+
+library('ggplot2')
+```
+
+```{r}
+output_directory <- paste0(getwd(), '/figures/')
+if (!dir.exists(output_directory)) {dir.create(output_directory)}
+```
+
+```{r}
+path <- paste0(getwd(), '/data/processed-results/sample-genes/')
+filepath <- paste0(path, '5_ENSG00000100376.csv')
+data <- readr::read_csv(filepath)
+data$cs_id <- paste0(substr(data$cs_id, 0, 15), substr(data$cs_id, 19, 22))
+
+head(data)
+```
+
+```{r}
+create_plot <- function(filename) {
+  path <- paste0(getwd(), '/data/processed-results/sample-genes/')
+  filepath <- paste0(path, filename)
+  data <- readr::read_csv(filepath)
+  #data$cs_id <- paste0(substr(data$cs_id, 0, 15), substr(data$cs_id, 19, 22))
+  data$cs_id <- substr(data$cs_id, 20, 22)
+  colnames(data)[which(names(data) == 'position')] <- 'Positsioon'
+  colnames(data)[which(names(data) == 'pip')] <- 'PIP'
+  colnames(data)[which(names(data) == 'cs_index')] <- 'CS'
+
+  p <- ggplot(data, aes(x = Positsioon, y = PIP, color = CS)) + geom_point() + facet_grid(cs_id~1) 
+  return(p)
+}
+```
+
+```{r}
+p <- create_plot('5_ENSG00000100376.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+height <- 9
+width <- 10
+setwd(figpath)
+ggsave('5_ENSG00000100376.png', height = height, width = width)
+setwd('..')
+```
+
+```{r}
+p <- create_plot('5_ENSG00000164707.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+setwd(figpath)
+ggsave('5_ENSG00000164707.png', height = height, width = width)
+setwd('..')
+```
+
+```{r}
+p <- create_plot('5_ENSG00000214922.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+setwd(figpath)
+ggsave('5_ENSG00000214922.png', height = height, width = width)
+setwd('..')
+```
+
+```{r}
+p <- create_plot('6_ENSG00000196275.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+setwd(figpath)
+ggsave('6_ENSG00000196275.png', height = height, width = width)
+setwd('..')
+```
+
+```{r}
+p <- create_plot('7_ENSG00000100266.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+setwd(figpath)
+ggsave('7_ENSG00000100266.png', height = height, width = width)
+setwd('..')
+```
+
+```{r}
+create_plot <- function(filename) {
+  path <- paste0(getwd(), '/data/processed-results/sample-genes/')
+  filepath <- paste0(path, filename)
+  data <- readr::read_csv(filepath)
+  colnames(data)[which(names(data) == 'position')] <- 'Positsioon'
+  colnames(data)[which(names(data) == 'pip')] <- 'PIP'
+  colnames(data)[which(names(data) == 'cs_id')] <- 'CS'
+
+  p <- ggplot(data, aes(x = Positsioon, y = PIP)) + geom_point(aes(fill = as.factor(CS)), size=4, color = 'black', pch=21) + theme_bw() + scale_fill_manual(values = c('#4f94cd', '#857aab', '#c95356', '#5f9e6e', '#d97b45')) + theme(legend.title=element_blank(), legend.position="top", panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"), axis.text.x = element_text(size=8), axis.text.y = element_text(size=8))
+
+  return(p)
+}
+```
+
+```{r}
+p <- create_plot('igraph_ENSG00000162441.csv')
+p
+```
+
+```{r}
+figpath <- paste0(getwd(), '/figures/')
+height <- 4
+width <- 7
+setwd(figpath)
+ggsave('ENSG00000162441.png', height = height, width = width)
+setwd('..')
+```
